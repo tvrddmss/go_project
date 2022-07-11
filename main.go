@@ -8,12 +8,43 @@ import (
     "os/signal"
     "syscall"
     "time"
-	//"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
     "go_project/app/shop"
     "fmt"
     "go_project/routers"
     "go_project/pkg/setting"
+
+
+    _ "go_project/docs"
+	// ginSwagger "github.com/swaggo/gin-swagger"
+    // swaggerFiles "github.com/swaggo/files"
+
+	"github.com/go-redis/redis"
 )
+
+var swagHandler gin.HandlerFunc
+
+// func Init() {
+//     swagHandler = ginSwagger.WrapHandler(swaggerFiles.Handler)
+// }
+
+
+// redis
+
+// 定义一个全局变量
+var redisdb *redis.Client
+
+func initRedis()(err error){
+	redisdb = redis.NewClient(&redis.Options{
+		Addr: "127.0.0.1:6379",  // 指定
+		Password: "",
+		DB:0,		// redis一共16个库，指定其中一个库即可
+	})
+    _,err = redisdb.Ping().Result()
+	return
+}
+
+
 // @title go_project学习项目
 // @version 1.0
 // @description 测试用程序
@@ -23,9 +54,31 @@ import (
 // @contact.email support@swagger.io
 // @license.name Apache 2.0
 // @license.url [http://www.apache.org/licenses/LICENSE-2.0.html](http://www.apache.org/licenses/LICENSE-2.0.html)
-// @host 192.168.50.237
+// @host 192.168.50.237:8081
 // @BasePath /
 func main() {
+
+    err := initRedis()
+	if err != nil {
+		fmt.Printf("connect redis failed! err : %v\n",err)
+		return
+	}
+	fmt.Println("redis连接成功！")
+
+
+    // 存普通string类型，10分钟过期
+	redisdb.Set("test:name","科科儿子",time.Minute*10)
+	// 存hash数据
+	redisdb.HSet("test:class","521",42)
+	// 存list数据
+	redisdb.RPush("test:list",1)  // 向右边添加元素
+	redisdb.LPush("test:list",2)  // 向左边添加元素
+	// 存set数据
+	redisdb.SAdd("test:set","apple")
+	redisdb.SAdd("test:set","pear")
+
+
+
     // 加载多个APP的路由配置
     routers.Include(shop.Routers)
     // 初始化路由
@@ -33,6 +86,10 @@ func main() {
     // if err := r.Run(); err != nil {
     //     fmt.Println("startup service failed, err:%v\n", err)
     // }
+
+    if swagHandler != nil { 
+       r.GET("/swagger/*any", swagHandler)        
+    }
 	svr := &http.Server{
 		Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
 		Handler:        r,
@@ -40,7 +97,6 @@ func main() {
 		WriteTimeout:   setting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
-
 	//svr.ListenAndServe()
 
 

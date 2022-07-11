@@ -13,12 +13,13 @@ import (
     "go_project/pkg/setting"
     "go_project/pkg/util"
     "go_project/pkg/logging"
+    //"fmt"
 )
 
-//
 // @Summary 获取单个文章
-// @Tag.name    article
+// @Tags article
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param id query int false "id"
 // @Success 200 {string} e.BackStruct "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/articles/:id [get]
@@ -52,7 +53,9 @@ func GetArticle(c *gin.Context) {
 
 
 // @Summary 获取多个文章标签
+// @Tags article
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param state query int false "State"
 // @Success 200 {string} e.BackStruct "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/articles [get]
@@ -98,7 +101,9 @@ func GetArticles(c *gin.Context) {
 }
 
 // @Summary 新增文章
+// @Tags article
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param tag_id query int false "tag_id"
 // @Param title query string false "title"
 // @Param desc query string false "desc"
@@ -152,7 +157,9 @@ func AddArticle(c *gin.Context) {
 }
 
 // @Summary 修改文章
+// @Tags article
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param id query int false "id"
 // @Param tag_id query int false "tag_id"
 // @Param title query string false "title"
@@ -227,7 +234,9 @@ func EditArticle(c *gin.Context) {
 }
 
 // @Summary 删除文章
+// @Tags article
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param id query int false "id"
 // @Success 200 {string} e.BackStruct "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/articles/:id [delete]

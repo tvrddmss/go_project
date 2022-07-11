@@ -9,7 +9,7 @@ definitions:
       msg:
         type: string
     type: object
-host: 192.168.50.237
+host: 192.168.50.237:8081
 info:
   contact:
     email: support@swagger.io
@@ -26,6 +26,11 @@ paths:
   /api/v1/articles:
     get:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: State
         in: query
         name: state
@@ -38,8 +43,15 @@ paths:
           schema:
             type: string
       summary: 获取多个文章标签
+      tags:
+      - article
     post:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: tag_id
         in: query
         name: tag_id
@@ -68,9 +80,16 @@ paths:
           schema:
             type: string
       summary: 新增文章
+      tags:
+      - article
   /api/v1/articles/:id:
     delete:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: id
         in: query
         name: id
@@ -83,8 +102,15 @@ paths:
           schema:
             type: string
       summary: 删除文章
+      tags:
+      - article
     get:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: id
         in: query
         name: id
@@ -97,8 +123,15 @@ paths:
           schema:
             type: string
       summary: 获取单个文章
+      tags:
+      - article
     put:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: id
         in: query
         name: id
@@ -135,9 +168,16 @@ paths:
           schema:
             type: string
       summary: 修改文章
+      tags:
+      - article
   /api/v1/tags:
     get:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: Name
         in: query
         name: name
@@ -155,8 +195,15 @@ paths:
           schema:
             type: string
       summary: 获取多个文章标签
+      tags:
+      - tag
     post:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: Name
         in: query
         name: name
@@ -178,9 +225,16 @@ paths:
           schema:
             type: string
       summary: 新增文章标签
+      tags:
+      - tag
   /api/v1/tags/{id}:
     delete:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: ID
         in: path
         name: id
@@ -194,8 +248,15 @@ paths:
           schema:
             type: string
       summary: 删除文章标签
+      tags:
+      - tag
     put:
       parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
       - description: ID
         in: path
         name: id
@@ -223,6 +284,8 @@ paths:
           schema:
             type: string
       summary: 修改文章标签
+      tags:
+      - tag
   /auth:
     get:
       parameters:
@@ -242,4 +305,18 @@ paths:
           schema:
             type: string
       summary: 登录
+      tags:
+      - Auth
+  /clearredis:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 清空缓存
+      tags:
+      - Auth
 swagger: "2.0"

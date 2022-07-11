@@ -16,7 +16,9 @@ import (
 
 
 // @Summary 获取多个文章标签
+// @Tags tag
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param name query string true "Name"
 // @Param state query int false "State"
 // @Success 200 {string} e.BackStruct "{"code":200,"data":{},"msg":"ok"}"
@@ -50,7 +52,9 @@ func GetTags(c *gin.Context) {
 }
 
 // @Summary 新增文章标签
+// @Tags tag
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param name query string true "Name"
 // @Param state query int false "State"
 // @Param created_by query int false "CreatedBy"
@@ -86,7 +90,9 @@ func AddTag(c *gin.Context) {
 }
 
 // @Summary 修改文章标签
+// @Tags tag
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param id path int true "ID"
 // @Param name query string true "ID"
 // @Param state query int false "State"
@@ -138,7 +144,9 @@ func EditTag(c *gin.Context) {
 }
 
 // @Summary 删除文章标签
+// @Tags tag
 // @Produce  json
+// @param token header string true "Authorization"
 // @Param id path int true "ID"
 // @Success 200 {string} e.BackStruct "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/tags/{id} [delete]

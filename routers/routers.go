@@ -3,8 +3,8 @@ package routers
 import (
 
     "github.com/gin-gonic/gin"
-    "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
+    "github.com/swaggo/files"
 	//"github.com/swaggo/swag"
 
     _ "go_project/docs"
@@ -12,9 +12,9 @@ import (
     "go_project/routers/api"
     "go_project/routers/api/v1"
     "go_project/middleware/jwt"
-)
 
-// var swagHandler gin.HandlerFunc
+	
+)
 
 type Option func(*gin.Engine)
 
@@ -26,6 +26,7 @@ func Include(opts ...Option) {
 }
 // 初始化
 func Init() *gin.Engine {
+
     r := gin.New()
 
     r.Use(gin.Logger())
@@ -40,9 +41,6 @@ func Init() *gin.Engine {
 	r.LoadHTMLGlob("templates/**/*")
 	r.LoadHTMLGlob("app/**/templates/*")
 
-    // if swagHandler != nil { 
-    //     r.GET("/swagger/*any", swagHandler)        
-    // }
     r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
     r.GET("/test", func(c *gin.Context) {
@@ -52,6 +50,7 @@ func Init() *gin.Engine {
 	})
 
     r.GET("/auth", api.GetAuth)
+    r.GET("/clearredis", api.ClearRedis)
 
     apiv1 := r.Group("/api/v1")
     apiv1.Use(jwt.JWT())

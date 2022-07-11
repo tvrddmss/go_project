@@ -13,6 +13,14 @@ type Tag struct {
 func GetTags(pageNum int, pageSize int, maps interface {}) (tags []Tag) {
     db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&tags)
 
+    // u1 := &Auth {
+    //     Username : "name",
+    //     Password : "p",
+    // }
+    // db.Table("blog_auth").Create(u1);
+    //db.Table("users").Select("COALESCE(age,?)", 42).Rows()
+    // db.Model(&Article{}).Where("id = ?", id).Updates(data)
+    //db.Where("id = ?", id).Delete(Article{})
     return
 }
 
