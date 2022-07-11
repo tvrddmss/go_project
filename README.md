@@ -28,3 +28,5 @@
         }
 7.redis///   命令行：redis-cli（进入命令）quit(推出命令)
 
+8.未完成：Channel/
+
