@@ -5,10 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "name":"Launch",
+            "type": "go",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "/home/wsl/project/gowork/src/go_project/app/shop/templates/index.html"
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {},
+            "args": []
+          
         }
     ]
 }
