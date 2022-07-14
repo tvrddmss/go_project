@@ -7,6 +7,7 @@ import (
 	"go_project/middleware/channel"
 	_ "go_project/middleware/channel"
 	"go_project/middleware/redis"
+	"go_project/mongo"
 	"go_project/pkg/setting"
 	"go_project/routers"
 	"log"
@@ -19,7 +20,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	_ "go_project/docs"
-	"go_project/rpc"
+	_ "go_project/mongo"
 	// ginSwagger "github.com/swaggo/gin-swagger"
 	// swaggerFiles "github.com/swaggo/files"
 )
@@ -44,9 +45,11 @@ var swagHandler gin.HandlerFunc
 func main() {
 
 	//initChannel()
-	//启动微服务
-	rpc.InitLogServer()
-	initaaa()
+	// //启动微服务
+	// rpc.InitLogServer()
+	// initaaa()
+	var m mongo.Mongo
+	m.Init()
 
 }
 func initaaa() {

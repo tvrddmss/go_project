@@ -468,21 +468,5 @@
                 }
             }
         }
-    },
-    "definitions": {
-        "e.BackStruct": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "string"
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        }
     }
 }

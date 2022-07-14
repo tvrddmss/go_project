@@ -14,9 +14,9 @@ import (
 	"go_project/pkg/e"
 	"go_project/pkg/logging"
 	"go_project/pkg/util"
+	"go_project/rpc"
 
 	"go_project/middleware/redis"
-	"go_project/rpc"
 )
 
 type auth struct {
@@ -36,7 +36,7 @@ func GetAuth(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	userip := c.Request.Header.Get("X-Forward-For")
+	userip := c.Request.RemoteAddr
 	valid := validation.Validation{}
 	a := auth{Username: username, Password: password}
 	ok, _ := valid.Valid(&a)
@@ -67,8 +67,7 @@ func GetAuth(c *gin.Context) {
 				}
 			}
 
-			rpc.Send(username,userip)
-
+			rpc.Send(username, userip)
 
 		} else {
 			code = e.ERROR_AUTH

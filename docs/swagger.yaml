@@ -1,14 +1,4 @@
 basePath: /
-definitions:
-  e.BackStruct:
-    properties:
-      code:
-        type: integer
-      data:
-        type: string
-      msg:
-        type: string
-    type: object
 host: 192.168.50.8:8000
 info:
   contact:

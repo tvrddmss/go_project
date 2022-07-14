@@ -1,11 +1,11 @@
 package rpc
 
 import (
-    "fmt"
-    "net"
+	"fmt"
+	"net"
 )
 
-func Send(username string,userip string)  {
+func Send(username string, userip string) {
 	//写日志
 	addr := "127.0.0.1:8001"
 	// 客户端获取连接
@@ -16,7 +16,7 @@ func Send(username string,userip string)  {
 	// 创建客户端对象
 	cli := NewClient(conn)
 	// 需要声明函数原型
-	var appendLog func(userinfo UserLoginInfo) (error)
+	var appendLog func(userinfo UserLoginInfo) error
 	cli.callRPC("appendLog", &appendLog)
 	// 得到查询结果
 	var userinfo UserLoginInfo
