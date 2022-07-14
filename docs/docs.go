@@ -515,7 +515,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
-	Host:        "192.168.50.237:8081",
+	Host:        "192.168.50.8:8000",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "go_project学习项目",

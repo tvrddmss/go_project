@@ -16,6 +16,7 @@ import (
 	"go_project/pkg/util"
 
 	"go_project/middleware/redis"
+	"go_project/rpc"
 )
 
 type auth struct {
@@ -35,6 +36,7 @@ func GetAuth(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
+	userip := c.Request.Header.Get("X-Forward-For")
 	valid := validation.Validation{}
 	a := auth{Username: username, Password: password}
 	ok, _ := valid.Valid(&a)
@@ -44,6 +46,7 @@ func GetAuth(c *gin.Context) {
 	if ok {
 		isExist := models.CheckAuth(username, password)
 		if isExist {
+
 			token, err := redis.Get("user:" + username + ":token")
 			fmt.Println("token:", token)
 			if err == nil && token != nil {
@@ -63,6 +66,9 @@ func GetAuth(c *gin.Context) {
 					redis.Set("user:"+username+":token", token)
 				}
 			}
+
+			rpc.Send(username,userip)
+
 
 		} else {
 			code = e.ERROR_AUTH

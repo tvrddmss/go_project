@@ -19,6 +19,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	_ "go_project/docs"
+	"go_project/rpc"
 	// ginSwagger "github.com/swaggo/gin-swagger"
 	// swaggerFiles "github.com/swaggo/files"
 )
@@ -38,12 +39,14 @@ var swagHandler gin.HandlerFunc
 // @contact.email support@swagger.io
 // @license.name Apache 2.0
 // @license.url [http://www.apache.org/licenses/LICENSE-2.0.html](http://www.apache.org/licenses/LICENSE-2.0.html)
-// @host 192.168.50.237:8081
+// @host 192.168.50.8:8000
 // @BasePath /
 func main() {
 
-	initChannel()
-	//initaaa()
+	//initChannel()
+	//启动微服务
+	rpc.InitLogServer()
+	initaaa()
 
 }
 func initaaa() {
