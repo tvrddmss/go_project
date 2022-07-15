@@ -14,6 +14,15 @@
 
 5.使用nginx转发，并学习了负载均衡
 
+    sudo nginx -t//检查配置
+    nginx -s reload
+    service nginx restart
+
+    #查看nginx的启动用户及使用用户
+    ps aux | grep nginx
+
+
+
 6.数据库链接执行SQL语句
 
     (1)执行sql
