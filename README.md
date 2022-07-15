@@ -44,11 +44,22 @@
 
 11.用微服务RPC实现登陆日志(写数据库)
 
-12.用容器Docker部署了MongoDB简单连接创建实验
+12.用容器Docker部署了MongoDB简单连接实验
+    //                   conterid servername 管理员权限
     sudo docker exec -it mongo mongo admin
 
-    (1)需要与现有项目结合
     (2)无法连接--据说要降低版本到mongo4.0
+
+    (3)降低到4.0版本后可以连接，但是查询不到数据
+
+        查询到了：结构体，字段名，首字母大写，注释部分与数据一致 例如：
+
+        type Person struct {
+	        ID     bson.ObjectId `bson:"_id,omitempty"` //类型是bson.ObjectId
+	        Name   string        `bson:"name"`          
+	        Text   string        `bson:"text"`
+	        Newcol string        `bson:"newcol"`
+        }
 
 未完成：
 

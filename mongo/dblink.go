@@ -17,24 +17,26 @@ type Mongo struct {
 	name string
 }
 
-func creatMongo() *Mongo {
-	var m Mongo
-	m.name = "ceshi"
-	return &m
-}
+// func creatMongo() *Mongo {
+// 	var m Mongo
+// 	m.name = "ceshi"
+// 	return &m
+// }
 
 func (m *Mongo) Init() {
 
-	// fmt.Println("mongo连接测试1")
-	// TestConn1()
+	fmt.Println("mongo连接测试1")
+	TestConn1()
 	fmt.Println("mongo连接测试2")
 	TestConn2()
 }
 
 // 声明结构体
 type Test struct {
-	name string
-	text string
+	ID     bson.ObjectId `bson:"_id,omitempty"` //类型是bson.ObjectId
+	Name   string        `bson:"name"`          //这里变量名和数据库里的名字不一致
+	Text   string        `bson:"text"`
+	Newcol string        `bson:"test"`
 }
 
 func TestConn1() {
@@ -53,7 +55,7 @@ func TestConn1() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	find, err := client.Database("test").Collection("test").Find(context.TODO(), bson.M{})
+	find, err := client.Database("test").Collection("test").Find(context.TODO(), bson.M{"name": "Ale"})
 	defer find.Close(context.TODO())
 	res := []Test{}
 	// 遍历游标获取查询到的文档
@@ -66,7 +68,7 @@ func TestConn1() {
 		}
 		res = append(res, cur)
 	}
-	fmt.Printf("%s", res[len(res)-1].name)
+	fmt.Printf("Test:%s\n", res[len(res)-1].Name)
 }
 
 func TestConn2() {
@@ -75,8 +77,8 @@ func TestConn2() {
 		Addrs:     []string{"192.168.50.8:27017"}, //远程(或本地)服务器地址及端口号
 		Direct:    true,
 		Timeout:   time.Second * 1,
-		Database:  "test", //数据库
-		Source:    "admin",
+		Database:  "admin", //数据库
+		Source:    "",
 		Username:  "admin",
 		Password:  "123456",
 		PoolLimit: 4096, // Session.SetPoolLimit
@@ -95,20 +97,22 @@ func TestConn2() {
 	session.SetMode(mgo.Monotonic, true)
 	c := session.DB("test").C("test")
 	//c.Find(bson.M{"name": "Ale"}).One(&result)
-	err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
-		&Person{"Cla", "+55 53 8402 8510"})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
+	// 	&Person{"Cla", "+55 53 8402 8510"})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	result := Person{}
-	err = c.Find(bson.M{"name": "Ale"}).One(&result)
+	err = c.Find(bson.M{}).One(&result)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Phone:", result.text)
+	fmt.Println("Phone:", result.Newcol)
 }
 
 type Person struct {
-	Name string
-	text string
+	ID     bson.ObjectId `bson:"_id,omitempty"` //类型是bson.ObjectId
+	Name   string        `bson:"name"`          //这里变量名和数据库里的名字不一致
+	Text   string        `bson:"text"`
+	Newcol string        `bson:"newcol"`
 }
