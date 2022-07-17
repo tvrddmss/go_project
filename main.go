@@ -7,9 +7,9 @@ import (
 	"go_project/middleware/channel"
 	_ "go_project/middleware/channel"
 	"go_project/middleware/redis"
-	"go_project/mongo"
 	"go_project/pkg/setting"
 	"go_project/routers"
+	"go_project/rpc"
 	"log"
 	"net/http"
 	"os"
@@ -44,12 +44,15 @@ var swagHandler gin.HandlerFunc
 // @BasePath /
 func main() {
 
+	//通道学习
 	//initChannel()
+	//mongodb学习
+	// var m mongo.Mongo
+	// m.Init()
+
 	// //启动微服务
-	// rpc.InitLogServer()
-	// initaaa()
-	var m mongo.Mongo
-	m.Init()
+	rpc.InitLogServer()
+	initaaa()
 
 }
 func initaaa() {
