@@ -6,13 +6,13 @@
 
 3.logging用于写日志
 
-4.并使用了swagger生成了API说明网页
+4.并使用了swagger生成了API说明网页:swag init
 
     （1）用// @Tags 分组
 
     （2）携带token
 
-5.使用nginx转发，并学习了负载均衡
+5.使用nginx转发，并学习了负载均衡 /etc/nginx/nginx.conf
 
     sudo nginx -t//检查配置
     nginx -s reload

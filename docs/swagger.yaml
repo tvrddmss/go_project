@@ -16,11 +16,6 @@ paths:
   /api/v1/articles:
     get:
       parameters:
-      - description: Authorization
-        in: header
-        name: token
-        required: true
-        type: string
       - description: State
         in: query
         name: state
@@ -72,37 +67,11 @@ paths:
       summary: 新增文章
       tags:
       - article
-  /api/v1/articles/:id:
-    delete:
-      parameters:
-      - description: Authorization
-        in: header
-        name: token
-        required: true
-        type: string
-      - description: id
-        in: query
-        name: id
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
-          schema:
-            type: string
-      summary: 删除文章
-      tags:
-      - article
+  /api/v1/articles/:
     get:
       parameters:
-      - description: Authorization
-        in: header
-        name: token
-        required: true
-        type: string
       - description: id
-        in: query
+        in: path
         name: id
         type: integer
       produces:
@@ -115,6 +84,28 @@ paths:
       summary: 获取单个文章
       tags:
       - article
+  /api/v1/articles/:id:
+    delete:
+      parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 删除文章
+      tags:
+      - article
     put:
       parameters:
       - description: Authorization
@@ -123,7 +114,7 @@ paths:
         required: true
         type: string
       - description: id
-        in: query
+        in: path
         name: id
         type: integer
       - description: tag_id
@@ -163,11 +154,6 @@ paths:
   /api/v1/tags:
     get:
       parameters:
-      - description: Authorization
-        in: header
-        name: token
-        required: true
-        type: string
       - description: Name
         in: query
         name: name
@@ -276,7 +262,56 @@ paths:
       summary: 修改文章标签
       tags:
       - tag
-  /auth:
+  /auth/{id}:
+    get:
+      parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获取用户信息
+      tags:
+      - Auth
+    put:
+      parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: nickname
+        in: formData
+        name: nickname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 修改用户信息
+      tags:
+      - Auth
+  /auth/login:
     get:
       parameters:
       - description: username
@@ -295,6 +330,28 @@ paths:
           schema:
             type: string
       summary: 登录
+      tags:
+      - Auth
+  /auth/uploadimg:
+    post:
+      parameters:
+      - description: Authorization
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: userid
+        in: query
+        name: userid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 上传图片
       tags:
       - Auth
   /clearredis:

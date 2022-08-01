@@ -8,15 +8,18 @@ import (
 )
 
 type Auth_log struct {
-	ID        int `gorm:"primary_key" json:"id"`
-	CreatedOn int `json:"created_on"`
+	ID            int    `gorm:"primary_key" json:"id"`
+	CreatedOn     int    `json:"created_on"`
+	CreatedOnText string `json:"created_on_text"`
 
 	Username string `json:"UserName"`
 	Userip   string `json:"UserIp`
 }
 
 func (auth_log *Auth_log) BeforeCreate(scope *gorm.Scope) error {
-	scope.SetColumn("CreatedOn", time.Now().Unix())
+	timenow := time.Now()
+	scope.SetColumn("CreatedOn", timenow.Unix())
+	scope.SetColumn("CreatedOnText", timenow.Format("2006-01-02 15:04:05"))
 
 	return nil
 }

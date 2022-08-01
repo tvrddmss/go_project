@@ -36,13 +36,6 @@ const docTemplate = `{
                 "summary": "获取多个文章标签",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "State",
                         "name": "state",
@@ -115,7 +108,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/articles/:id": {
+        "/api/v1/articles/": {
             "get": {
                 "produces": [
                     "application/json"
@@ -126,17 +119,10 @@ const docTemplate = `{
                 "summary": "获取单个文章",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query"
+                        "in": "path"
                     }
                 ],
                 "responses": {
@@ -147,7 +133,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/v1/articles/:id": {
             "put": {
                 "produces": [
                     "application/json"
@@ -168,7 +156,7 @@ const docTemplate = `{
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query"
+                        "in": "path"
                     },
                     {
                         "type": "integer",
@@ -236,7 +224,7 @@ const docTemplate = `{
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query"
+                        "in": "path"
                     }
                 ],
                 "responses": {
@@ -259,13 +247,6 @@ const docTemplate = `{
                 ],
                 "summary": "获取多个文章标签",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "Name",
@@ -423,7 +404,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/auth": {
+        "/auth/login": {
             "get": {
                 "produces": [
                     "application/json"
@@ -444,6 +425,114 @@ const docTemplate = `{
                         "description": "password",
                         "name": "password",
                         "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/uploadimg": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "上传图片",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "userid",
+                        "name": "userid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "获取用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "修改用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "nickname",
+                        "name": "nickname",
+                        "in": "formData"
                     }
                 ],
                 "responses": {
