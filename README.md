@@ -79,3 +79,22 @@
 
 8.cookies
 
+
+go_project_element
+
+
+1.nuxt 前端平台，学习VUE系列
+2.用以解决兼容问题：export NODE_OPTIONS=--openssl-legacy-provider            npm run dev
+3.在模版里只能有一个主div（根对象），如果有多个元素，请用一个主div包含他们
+4.与后端联系成功，正常登陆，跳转，nuxt，全局变量初始化，axios携带token访问后端
+5.在nuxtServerInit方法中，设置根据cookies设置state即可
+
+6.做了列表页面及详细页面，可登陆，注销，可上传头像
+7.完成头像修改联动，登陆联动，完成两个组件
+
+8.安装富文本：npm install vue-quill-editor
+
+9.集成element-ui,token全局保存,完成（增删查改）下拉加载更多，vue 还是有诸多自己的不足，更加适合静态页面数据展示，不太适合业务状态实时变化
+
+
+
